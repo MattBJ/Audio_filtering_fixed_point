@@ -165,8 +165,11 @@ int a;
 	  	  						  	  	(curSwitches[3])? _lsadd(sum,_smpy(rx_pang[k][BUFLEN + index],HPF[j])) : 0;
 	  	  					}
 	  	  				}
-//	  	  				sum /= SAMPLE_SIZE;
-	  	  				_lsadd(sum,16384); // add 2^15 for DP
+	  	  				if(sum >= 0){
+	  						_lsadd(sum,16384); // add 2^14 for DP
+	  					} else {
+	  						_lsadd(sum,(-16384)); // subtract 2^14 for negative DP
+	  					}
 	  	  				sum = sum>>15; // downshift 15 bits that filters were scaled by
 	  	  				tx_pang[k][i] = sum;
 	  	  			}
@@ -197,8 +200,11 @@ int a;
 	  							  	  	(curSwitches[3])? _lsadd(sum,_smpy(rx_ping[k][BUFLEN + index],HPF[j])) : 0;
 	  			  	  		}
 	  			  	  	}
-//	  					sum /= SAMPLE_SIZE;
-	  					_lsadd(sum,16384); // add 2^15 for DP
+	  					if(sum >= 0){
+	  						_lsadd(sum,16384); // add 2^14 for DP
+	  					} else {
+	  						_lsadd(sum,(-16384)); // subtract 2^14 for negative DP
+	  					}
 	  					sum = sum>>15; // downshift 15 bits that filters were scaled by
 	  					tx_ping[k][i] = sum;
 	  				}
@@ -229,8 +235,11 @@ int a;
 	  								  	(curSwitches[3])? _lsadd(sum,_smpy(rx_pong[k][BUFLEN + index],HPF[j])) : 0;
 	  			  			}
 	  			   	  	}
-//	  					sum /= SAMPLE_SIZE;
-	  					_lsadd(sum,16384); // add 2^15 for DP
+	  					if(sum >= 0){
+	  						_lsadd(sum,16384); // add 2^14 for DP
+	  					} else {
+	  						_lsadd(sum,(-16384)); // subtract 2^14 for negative DP
+	  					}
 	  					sum = sum>>15; // downshift 15 bits that filters were scaled by
 	  			 		tx_pong[k][i] = sum;
 	  				}
